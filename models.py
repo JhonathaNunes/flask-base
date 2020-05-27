@@ -1,30 +1,38 @@
-## models.py
 from banco import bd
 
 
-class Post:
-    def __init__(self, titulo, autor, texto):
-        self.titulo = titulo
-        self.autor = autor
-        self.texto = texto
+class Presenca:
+    def __init__(self, email, presenca, resposta, comentarios):
+        self.email = email
+        self.presenca = presenca
+        self.resposta = resposta
+        self.comentarios = comentarios
 
     def gravar(self):
-        sql = '''insert into posts (titulo, autor, texto) values (?, ?, ?)'''
-        primeiro_interrogacao = self.titulo
-        segundo_interrogacao = self.autor
-        terceiro_interrogacao = self.texto
-        bd().execute(sql, [primeiro_interrogacao, segundo_interrogacao, terceiro_interrogacao])
+        sql = '''
+            insert into presenca
+            (email, presenca, resposta, comentarios)
+            values (?, ?, ?, ?)
+        '''
+
+        bd().execute(sql, [
+            self.email,
+            self.presenca,
+            self.resposta,
+            self.comentarios
+            ]
+        )
+
         bd().commit()
 
     @staticmethod
     def recupera_todos():
-        ## Usamos o objeto retornado por bd() para realizar comandos sql
-        sql = '''select titulo, autor, texto from posts order by id desc'''
+        sql = '''select * from presenca order by email desc'''
         cur = bd().execute(sql)
-        ## Montamos dicionário dicionários com os resultados da consulta para passar para a view
-        posts = []
-        for titulo, autor, texto in cur.fetchall(): # fetchall() gera uma lista com os resultados:
-            post = Post(titulo, autor, texto)
-            posts.append(post)
-        
-        return posts
+
+        presencas = []
+        for email, presenca, resposta, comentarios in cur.fetchall():
+            presenca = Presenca(email, presenca, resposta, comentarios)
+            presencas.append(presenca)
+
+        return presencas

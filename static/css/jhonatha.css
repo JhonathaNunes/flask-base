@@ -1,0 +1,19 @@
+.intro {
+    font-size: 16px;
+    color: #4a4a4a;
+    margin-top: 20px;
+}
+
+.likes_title {
+    font-size: 18px;
+    color: #4a4a4a;
+}
+
+.likes {
+    padding: 0;
+    list-style: none;
+}
+
+.mid_image {
+    margin-top: 15px;
+}

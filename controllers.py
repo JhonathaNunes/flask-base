@@ -4,81 +4,83 @@ from aplicacao import app
 from flask import render_template
 from flask import redirect
 from flask import request
-from models import Post
+from models import Presenca
 
 
 @app.route('/')
 def index():
-    # mensagens = Mensagem.recupera_todas()
-    posts = Post.recupera_todos()
+    presencas = Presenca.recupera_todos()
 
-    ## Insere opções no menu
     menu = []
-    ## Cada opção no menu é um dicionário
-    menu.append({'active': True, # active informa se a opção está ativa, e se estiver, destaca ela na página
-                'href': '/', # href é o caminho que deve ser aberto pela opção
-                'texto': 'Página principal'}) # texto é o texto exibido no menu para a opção
-    menu.append({'active': False,
-                'href': '/post',
-                'texto': 'Escrever post'})
-    menu.append({'active': False,
-                'href': '/fabio',
-                'texto': 'Sobre - Fabio'})
 
-    ## Inserimos tudo que foi criado no dicionário context, ele será passado para a view
-    context = {'titulo': 'Página principal',
-            'menu': menu,
-            'posts': posts}
+    menu.append({'active': True,
+                 'href': '/',
+                 'texto': 'Presenças'})
+    menu.append({'active': False,
+                 'href': '/presenca',
+                 'texto': 'Cadastrar presença'})
+    menu.append({'active': False,
+                 'href': '/jhonatha',
+                 'texto': 'Jhonatha'})
+
+    context = {'titulo': 'Presenças',
+               'menu': menu,
+               'presencas': presencas,
+               'presencas_num': len(presencas)}
 
     return render_template('index.html', **context)
 
-@app.route('/post')
-def post():
+
+@app.route("/presenca")
+def presenca():
     menu = []
-    ## Cada opção no menu é um dicionário
-    menu.append({'active': False, # active informa se a opção está ativa, e se estiver, destaca ela na página
-                'href': '/', # href é o caminho que deve ser aberto pela opção
-                'texto': 'Página principal'}) # texto é o texto exibido no menu para a opção
-    menu.append({'active': True,
-                'href': '/post',
-                'texto': 'Escrever post'})
+
     menu.append({'active': False,
-                'href': '/fabio',
-                'texto': 'Sobre - Fabio'})
+                 'href': '/',
+                 'texto': 'Presenças'})
+    menu.append({'active': True,
+                 'href': '/presenca',
+                 'texto': 'Cadastrar preseça'})
+    menu.append({'active': False,
+                 'href': '/jhonatha',
+                 'texto': 'Jhonatha'})
 
-    context = {'titulo': 'Escrever post',
-            'menu': menu}
+    context = {'titulo': 'Cadastrar preseça',
+               'menu': menu}
 
-    return render_template('post.html', **context)
+    return render_template('presenca.html', **context)
 
 
-@app.route('/post/gravar', methods=['POST'])
-def gravar_post():
-    titulo = request.form['titulo']
-    autor = request.form['autor']
-    texto = request.form['texto']
-    post = Post(titulo, autor, texto)
-    post.gravar()
+@app.route('/presenca/gravar', methods=['POST'])
+def gravar_presenca():
+    email = request.form['email']
+    presenca = request.form['presenca']
+    resposta = request.form['resposta']
+    comentarios = request.form['comentarios']
+
+    presenca = Presenca(email, presenca, resposta, comentarios)
+    presenca.gravar()
     return redirect('/')
 
-@app.route('/fabio')
-def fabio():
+
+@app.route('/jhonatha')
+def jhonatha():
     menu = []
-    ## Cada opção no menu é um dicionário
-    menu.append({'active': False, # active informa se a opção está ativa, e se estiver, destaca ela na página
-                'href': '/', # href é o caminho que deve ser aberto pela opção
-                'texto': 'Página principal'}) # texto é o texto exibido no menu para a opção
+
     menu.append({'active': False,
-                'href': '/post',
-                'texto': 'Escrever post'})
+                 'href': '/',
+                 'texto': 'Presenças'})
+    menu.append({'active': False,
+                 'href': '/presenca',
+                 'texto': 'Cadastrar preseça'})
     menu.append({'active': True,
-                'href': '/fabio',
-                'texto': 'Sobre - Fabio'})
+                 'href': '/jhonatha',
+                 'texto': 'Sobre - Jhonatha'})
 
-    context = {'titulo': 'Sobre - Fabio',
-            'menu': menu}
+    context = {'titulo': 'Sobre - Jhonatha',
+               'menu': menu}
 
-    return render_template('fabio.html', **context)
+    return render_template('jhonatha.html', **context)
 
 
 app.run()

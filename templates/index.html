@@ -3,11 +3,29 @@
 
 {% block conteudo %}
 
-  {% for post in posts %}
-    <h2>{{ post.titulo }}</h2>
-    <p><b>Autor: {{ post.autor }}</b></p> 
-    <p>{{ post.texto }}</p>
+  {% if presencas_num > 0 %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">E-mail</th>
+          <th scope="col">Presença</th>
+          <th scope="col">Resposta</th>
+          <th scope="col">Comentários</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for presenca in presencas %}
+        <tr>
+          <th scope="row">{{ presenca.email }}</th>
+          <td>{{ presenca.presenca }}</td>
+          <td>{{ presenca.resposta }}</td>
+          <td>{{ presenca.comentarios }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   {% else %}
-    <p>Nenhum post</p>
-  {% endfor %}
+    <p>Nenhuma presença</p>
+  {% endif %}
+  
 {% endblock %}

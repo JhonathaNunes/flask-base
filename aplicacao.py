@@ -8,7 +8,7 @@ app.config.from_object(__name__)
 
 # configuração
 app.config.update(
-    DATABASE = 'banco_blog.db',
-    DEBUG = True,
+    DATABASE='banco.db',
+    DEBUG=True,
 )
 

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<form action='/presenca/gravar' method='post'></form>
+  <div class="presence-form">
+    <div class="form-group">
+      <label for='email'>Email:</label>
+      <input id='email' class="form-control" type='text' name='email' required>
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+        <input id="presente" class="form-check-input" type="radio" name="presenca" value="presente">
+        <label for="presente" class="form-check-label">Presente</label> 
+      </div>
+      <div class="form-check">
+          <input id="ausente" class="form-check-input" type="radio" name="presenca" value="ausente">
+          <label for="ausente" class="form-check-label">Ausente</label>
+      </div>
+    </div>
+    <div>
+      <label for='resposta'>Resposta:</label>
+      <input id='resposta' class="form-control" type='text' name='resposta' required>
+    </div>
+    <div class="form-group">
+      <label for='comentarios'>Comentários:</label>
+      <textarea id='comentarios' class="form-control" name='comentarios' required>
+      </textarea>
+    </div>
+    <input type='submit' value='Enviar' class="btn btn-primary">
+  </div>
+</form>
+{% endblock %}

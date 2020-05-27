@@ -5,3 +5,9 @@ body {
   padding: 3rem 1.5rem;
   text-align: center;
 }
+
+.presence-form {
+  margin: auto;
+  text-align: start;
+  width: 300px;
+}
